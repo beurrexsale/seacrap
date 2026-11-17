@@ -31,4 +31,5 @@ puis aller sur http://localhost:8000.
 | --- | --- | --- |
 | 1 | Carte de la rade avec les déchets signalés, données fictives, légende | `sprint-1` |
 | 2 | Menu de navigation, signalement avec photo, position et type, photo dans la fiche | `sprint-2` |
-| 3 | Connexion par pseudo, carte recentrée sur le joueur, zone Brest et Plouzané, ramassage, points, collection | `sprint-3` |
+| 3 | Connexion par pseudo, carte recentrée sur le joueur, zone Brest et Plouzané, ramassage, points, collection ; refonte visuelle partie 1 (liquid glass, icônes, logo) | `sprint-3`, `sprint-3-design` |
+| 4 | Page d'accueil et explication des modes, classement, grille bento, bonus pour un nouveau type | `sprint-4` |

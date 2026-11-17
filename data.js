@@ -32,7 +32,7 @@ const DECHETS_INITIAUX = [
 ];
 
 // Sprint 3 – S8 : barème des points.
-const POINTS = { signalement: 10, ramassage: 20 };
+const POINTS = { signalement: 10, ramassage: 20, nouveauType: 15 }; // nouveauType : bonus H10 (sprint 4)
 
 // Joueurs fictifs : serviront au classement (S10) dans un prochain sprint.
 const JOUEURS_INITIAUX = [

@@ -409,3 +409,201 @@ main {
   .legend { right: auto; max-width: 340px; }
   .tabbar { left: 50%; right: auto; width: 420px; transform: translateX(-50%); }
 }
+
+/* ===================== Sprint 4 : refonte partie 2 ===================== */
+
+/* ---------- Grille bento (Collection, Classement) ---------- */
+.bento {
+  max-width: 520px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.tuile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 12px;
+  border-radius: 22px;
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  text-align: center;
+}
+.tuile-large { grid-column: 1 / -1; }
+.bento > .btn { margin-top: 4px; }
+
+.tuile-points {
+  align-items: flex-start;
+  text-align: left;
+  padding: 20px;
+  background: linear-gradient(145deg, var(--ocean-light), var(--ocean));
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.tuile-points .hint { color: rgba(255, 255, 255, 0.8); }
+.tuile-points h2 { font-size: 22px; color: #fff; letter-spacing: -0.3px; }
+
+.gros-chiffre {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+  margin-top: 6px;
+}
+.gros-chiffre span { font-size: 15px; font-weight: 600; opacity: 0.85; letter-spacing: 0; }
+.gros-chiffre.petit { font-size: 32px; color: var(--ocean-dark); margin-top: 0; }
+.gros-chiffre.serre { gap: 1px; }
+
+.jauge {
+  width: 100%;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: rgba(11, 79, 108, 0.12);
+  overflow: hidden;
+}
+.jauge div {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--ocean-light), var(--ocean));
+}
+
+.tuile-type.verrouille .collection-pastille { filter: grayscale(1); opacity: 0.35; }
+.tuile-type.verrouille .collection-nom { color: var(--muted); }
+
+.tuile-bareme {
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.tuile-bareme strong { color: var(--ocean); }
+
+/* ---------- Classement ---------- */
+.tuile-podium h2 { font-size: 20px; color: var(--ocean-dark); margin-bottom: 10px; }
+
+.podium {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  gap: 8px;
+  width: 100%;
+}
+.marche { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0; }
+.marche-pseudo {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 13px;
+}
+.marche-points { font-size: 12px; color: var(--muted); }
+.marche-bloc {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  margin-top: 4px;
+  border-radius: 12px 12px 4px 4px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 20px;
+}
+.marche-1 .marche-bloc { height: 78px; background: linear-gradient(160deg, #f6c445, #e0a100); }
+.marche-2 .marche-bloc { height: 58px; background: linear-gradient(160deg, #c9d3da, #9aa8b2); }
+.marche-3 .marche-bloc { height: 44px; background: linear-gradient(160deg, #e0a36f, #b8743b); }
+.marche.moi .marche-pseudo { color: var(--ocean); }
+
+.liste-classement {
+  list-style: none;
+  align-items: stretch;
+  gap: 2px;
+  padding: 8px;
+}
+.liste-classement li {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  text-align: left;
+}
+.liste-classement li.moi {
+  background: rgba(42, 143, 180, 0.15);
+  font-weight: 700;
+}
+.liste-classement .rang { font-weight: 800; color: var(--ocean); text-align: center; }
+.liste-classement .pseudo { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.liste-classement .points { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- Page d'accueil ---------- */
+.logo-btn { border: none; background: none; padding: 0; cursor: pointer; display: flex; }
+
+.accueil {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex; /* + margin:auto sur la carte : centrée, mais défilable si l'écran est trop petit */
+  padding: 16px;
+  overflow-y: auto;
+  background: rgba(8, 40, 56, 0.35);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.accueil[hidden] { display: none; }
+
+.accueil-carte {
+  margin: auto;
+  width: 100%;
+  max-width: 440px;
+  padding: 22px 20px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  text-align: center;
+}
+.accueil-logo { width: 110px; height: auto; margin: 0 auto 6px; display: block; border-radius: 18px; }
+.accueil-carte h2 { font-size: 22px; color: var(--ocean-dark); letter-spacing: -0.3px; }
+.accueil-pitch { margin: 8px 0 16px; font-size: 14px; color: var(--muted); }
+
+.modes { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.mode {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.75);
+}
+.mode strong { font-size: 15px; }
+.mode p { font-size: 12.5px; color: var(--muted); }
+.mode-icone {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, var(--ocean-light), var(--ocean));
+  color: #fff;
+}
+.mode-icone .icon { width: 20px; height: 20px; }
+.mode-points { font-weight: 800; color: var(--ocean); }
+.accueil-securite { margin-top: 12px; font-size: 12px; }

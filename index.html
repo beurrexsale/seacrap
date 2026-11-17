@@ -6,14 +6,14 @@
   <title>Seacrap – Zéro déchet en rade de Brest</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <!-- ?v= : force le téléphone à recharger les fichiers à chaque nouvelle version -->
-  <link rel="stylesheet" href="style.css?v=s3c">
+  <link rel="stylesheet" href="style.css?v=s4">
   <link rel="icon" href="img/icone.png">
   <link rel="apple-touch-icon" href="img/icone.png">
 </head>
 <body>
   <header class="topbar glass">
     <div class="brand">
-      <img class="logo" src="img/logo.png" alt="Logo Seacrap">
+      <button class="logo-btn" id="btn-logo" aria-label="Revoir la présentation de Seacrap"><img class="logo" src="img/logo.png" alt="Logo Seacrap"></button>
       <div>
         <h1>Seacrap</h1>
         <p>Zéro déchet · Rade de Brest</p>
@@ -72,29 +72,14 @@
       </form>
     </section>
 
-    <!-- Écran 3 : collection (sprint 3 – S8, S9) -->
+    <!-- Écran 3 : collection (sprint 3 – S8, S9) ; grille bento au sprint 4 (T5) -->
     <section class="view scroll" id="view-collection">
-      <div class="card">
-        <div class="profil">
-          <div>
-            <p class="hint">Connecté en tant que</p>
-            <h2 id="profil-pseudo"></h2>
-          </div>
-          <div class="score"><strong id="profil-points">0</strong><span>points</span></div>
-        </div>
-        <p class="hint" id="collection-resume"></p>
-        <div class="collection-grid" id="collection-grid"></div>
-        <p class="hint bareme">Signalement : +10 points · Ramassage : +20 points</p>
-        <button type="button" class="btn btn-secondaire" id="btn-deconnexion">Se déconnecter</button>
-      </div>
+      <div class="bento" id="bento-collection"></div>
     </section>
 
-    <!-- Écran 4 : classement, prévu au sprint 4 -->
+    <!-- Écran 4 : classement (sprint 4 – S10), grille bento -->
     <section class="view scroll" id="view-classement">
-      <div class="card placeholder">
-        <h2>Classement</h2>
-        <p>Le classement des joueurs arrive au sprint 4.</p>
-      </div>
+      <div class="bento" id="bento-classement"></div>
     </section>
 
     <!-- Prise de photo du ramassage (S7) -->
@@ -111,8 +96,36 @@
     <button class="tab" data-view="classement"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>Classement</button>
   </nav>
 
+  <!-- Page d'accueil (sprint 4 – S1) et explication des 2 modes (S3) -->
+  <div class="accueil" id="accueil" hidden>
+    <div class="accueil-carte">
+      <img class="accueil-logo" src="img/logo.png" alt="Logo Seacrap">
+      <h2>Bienvenue sur Seacrap</h2>
+      <p class="accueil-pitch">Le jeu qui transforme chaque déchet du littoral de Brest et Plouzané en point de collection. Repère, ramasse, complète ta collection et grimpe au classement !</p>
+      <div class="modes">
+        <div class="mode">
+          <span class="mode-icone"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></span>
+          <div><strong>Repérer</strong><p>Prends en photo un déchet : il apparaît sur la carte pour toute la communauté.</p></div>
+          <span class="mode-points">+10</span>
+        </div>
+        <div class="mode">
+          <span class="mode-icone"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><path d="m9 13 2 2 4-4"/></svg></span>
+          <div><strong>Ramasser</strong><p>Va sur place, ramasse et photographie ton butin : le déchet disparaît de la carte.</p></div>
+          <span class="mode-points">+20</span>
+        </div>
+        <div class="mode">
+          <span class="mode-icone"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span>
+          <div><strong>Collectionner</strong><p>Chaque nouveau type de déchet ramassé enrichit ta collection.</p></div>
+          <span class="mode-points">+15</span>
+        </div>
+      </div>
+      <p class="hint accueil-securite">Pour ta sécurité : ne touche pas aux déchets dangereux (seringues, produits chimiques) et fais attention à la marée.</p>
+      <button type="button" class="btn" id="btn-commencer">C'est parti !</button>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="data.js?v=s3c"></script>
-  <script src="app.js?v=s3c"></script>
+  <script src="data.js?v=s4"></script>
+  <script src="app.js?v=s4"></script>
 </body>
 </html>

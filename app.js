@@ -3,6 +3,8 @@
 // Sprint 2 : menu, signalement avec photo et position (S5), type (S6), photo dans la fiche.
 // Sprint 3 : connexion (S2), carte recentrée sur le joueur, zone Brest et Plouzané,
 //            ramassage (S7), points (S8), collection par type (S9).
+// Sprint 4 : page d'accueil (S1), explication des modes (S3), classement (S10),
+//            grille bento (T5), bonus pour un nouveau type de déchet (H10).
 
 // La clé change au sprint 3 : les nouvelles données (Brest et Plouzané)
 // remplacent celles de toute la rade enregistrées aux sprints précédents.
@@ -66,6 +68,7 @@ function afficherVue(vue, ongletActif) {
   if (vue === "carte") setTimeout(() => carte.invalidateSize(), 50);
   if (vue === "signaler") ouvrirSignalement();
   if (vue === "collection") afficherCollection();
+  if (vue === "classement") afficherClassement();
 }
 
 onglets.forEach((o) => o.addEventListener("click", () => afficherEcran(o.dataset.view)));
@@ -97,12 +100,12 @@ document.getElementById("form-connexion").addEventListener("submit", (e) => {
   ecranApresConnexion = null;
 });
 
-document.getElementById("btn-deconnexion").addEventListener("click", () => {
+function seDeconnecter() {
   joueur = null;
   sauvegarderJoueur();
   afficherToast("Tu es déconnecté.");
   afficherEcran("carte");
-});
+}
 
 // ---------- Points (S8) et collection (S9) ----------
 
@@ -124,26 +127,103 @@ function ajouterACollection(type) {
   return nouveau;
 }
 
+// Collection en grille « bento » (T5, sprint 4) : tuiles de tailles différentes.
 function afficherCollection() {
-  document.getElementById("profil-pseudo").textContent = joueur.pseudo;
-  document.getElementById("profil-points").textContent = joueur.points;
-
   const types = Object.entries(TYPES_DECHETS);
   const obtenus = types.filter(([cle]) => joueur.collection[cle]).length;
-  document.getElementById("collection-resume").textContent =
-    `${obtenus} type${obtenus > 1 ? "s" : ""} de déchet collecté${obtenus > 1 ? "s" : ""} sur ${types.length}. Ramasse des déchets pour compléter ta collection.`;
+  const ramasses = Object.values(joueur.collection).reduce((s, n) => s + n, 0);
+  const pourcentage = Math.round((obtenus / types.length) * 100);
 
-  document.getElementById("collection-grid").innerHTML = types
+  const tuilesTypes = types
     .map(([cle, t]) => {
       const nombre = joueur.collection[cle] || 0;
       return `
-        <div class="collection-item ${nombre ? "" : "verrouille"}">
+        <div class="tuile tuile-type ${nombre ? "" : "verrouille"}">
           <span class="collection-pastille" style="background:${t.couleur}">${nombre || "?"}</span>
           <span class="collection-nom">${t.label}</span>
           <span class="hint">${nombre ? `${nombre} ramassé${nombre > 1 ? "s" : ""}` : "À découvrir"}</span>
         </div>`;
     })
     .join("");
+
+  document.getElementById("bento-collection").innerHTML = `
+    <div class="tuile tuile-large tuile-points">
+      <span class="hint">Connecté en tant que</span>
+      <h2>${echapper(joueur.pseudo)}</h2>
+      <div class="gros-chiffre">${joueur.points}<span>points</span></div>
+    </div>
+    <div class="tuile tuile-stat">
+      <span class="gros-chiffre petit">${obtenus}<span>/ ${types.length}</span></span>
+      <span class="hint">types collectés</span>
+      <div class="jauge"><div style="width:${pourcentage}%"></div></div>
+    </div>
+    <div class="tuile tuile-stat">
+      <span class="gros-chiffre petit">${ramasses}</span>
+      <span class="hint">déchets ramassés</span>
+    </div>
+    ${tuilesTypes}
+    <div class="tuile tuile-large tuile-bareme">
+      <span>Repérer <strong>+${POINTS.signalement}</strong></span>
+      <span>Ramasser <strong>+${POINTS.ramassage}</strong></span>
+      <span>Nouveau type <strong>+${POINTS.nouveauType}</strong></span>
+    </div>
+    <button type="button" class="btn btn-secondaire tuile-large" id="btn-deconnexion">Se déconnecter</button>`;
+
+  document.getElementById("btn-deconnexion").addEventListener("click", seDeconnecter);
+}
+
+// ---------- Classement (S10) ----------
+
+function afficherClassement() {
+  const joueurs = JOUEURS_INITIAUX
+    .filter((j) => j.pseudo !== joueur.pseudo)
+    .concat([{ pseudo: joueur.pseudo, points: joueur.points, moi: true }])
+    .sort((a, b) => b.points - a.points);
+  const monRang = joueurs.findIndex((j) => j.moi) + 1;
+  const podium = joueurs.slice(0, 3);
+  const ordrePodium = [podium[1], podium[0], podium[2]]; // 2e, 1er, 3e
+
+  const marches = ordrePodium
+    .map((j, i) => {
+      const rang = [2, 1, 3][i];
+      return `
+        <div class="marche marche-${rang} ${j.moi ? "moi" : ""}">
+          <span class="marche-pseudo">${echapper(j.pseudo)}</span>
+          <span class="marche-points">${j.points} pts</span>
+          <div class="marche-bloc">${rang}</div>
+        </div>`;
+    })
+    .join("");
+
+  const lignes = joueurs
+    .map((j, i) => `
+      <li class="${j.moi ? "moi" : ""}">
+        <span class="rang">${i + 1}</span>
+        <span class="pseudo">${echapper(j.pseudo)}${j.moi ? " (toi)" : ""}</span>
+        <span class="points">${j.points} pts</span>
+      </li>`)
+    .join("");
+
+  const ecart = monRang > 1 ? joueurs[monRang - 2].points - joueur.points + 1 : 0;
+
+  document.getElementById("bento-classement").innerHTML = `
+    <div class="tuile tuile-large tuile-podium">
+      <h2>Classement</h2>
+      <div class="podium">${marches}</div>
+    </div>
+    <div class="tuile tuile-stat">
+      <span class="gros-chiffre petit serre">${monRang}<span>${monRang === 1 ? "er" : "e"}</span></span>
+      <span class="hint">ta place sur ${joueurs.length}</span>
+    </div>
+    <div class="tuile tuile-stat">
+      <span class="gros-chiffre petit">${ecart}</span>
+      <span class="hint">${monRang > 1 ? `point${ecart > 1 ? "s" : ""} pour gagner une place` : "tu es premier !"}</span>
+    </div>
+    <ol class="tuile tuile-large liste-classement">${lignes}</ol>`;
+}
+
+function echapper(texte) {
+  return texte.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
 // ---------- Carte principale ----------
@@ -167,8 +247,8 @@ function contenuFiche(dechet) {
     <div class="popup">
       <img class="popup-photo" src="${photo}" alt="Photo du déchet">
       ${mention}
-      <h3>${dechet.lieu}</h3>
-      <p>Signalé par <strong>${dechet.signalePar}</strong></p>
+      <h3>${echapper(dechet.lieu)}</h3>
+      <p>Signalé par <strong>${echapper(dechet.signalePar)}</strong></p>
       <p>Le ${formaterDate(dechet.date)}</p>
       <span class="badge" style="background:${type.couleur}">${type.label}</span>
       <button class="btn btn-petit" data-ramasser="${dechet.id}">J'ai ramassé ce déchet</button>
@@ -301,8 +381,13 @@ champPhotoRamassage.addEventListener("change", () => {
 
     const label = TYPES_DECHETS[dechet.type].label;
     const nouveauType = ajouterACollection(dechet.type);
-    gagnerPoints(POINTS.ramassage,
-      nouveauType ? `Nouveau type dans ta collection : ${label} !` : "Déchet ramassé, bravo !");
+    // H10 : bonus quand un nouveau type de déchet entre dans la collection.
+    if (nouveauType) {
+      gagnerPoints(POINTS.ramassage + POINTS.nouveauType,
+        `Nouveau type dans ta collection : ${label} ! (bonus +${POINTS.nouveauType})`);
+    } else {
+      gagnerPoints(POINTS.ramassage, "Déchet ramassé, bravo !");
+    }
   });
 });
 
@@ -419,3 +504,20 @@ document.getElementById("form-signaler").addEventListener("submit", (e) => {
   if (!enregistre) afficherToast("Déchet signalé, mais il ne sera pas conservé après rechargement.");
   else gagnerPoints(POINTS.signalement, "Déchet signalé, merci !");
 });
+
+// ---------- Page d'accueil (S1) et explication des modes (S3) ----------
+
+const CLE_ACCUEIL_VU = "seacrap-accueil-vu";
+const accueil = document.getElementById("accueil");
+
+function ouvrirAccueil() { accueil.hidden = false; }
+function fermerAccueil() {
+  accueil.hidden = true;
+  ecrire(CLE_ACCUEIL_VU, true);
+}
+
+document.getElementById("btn-commencer").addEventListener("click", fermerAccueil);
+document.getElementById("btn-logo").addEventListener("click", ouvrirAccueil);
+
+// Affichée automatiquement à la première visite seulement.
+if (!lire(CLE_ACCUEIL_VU, false)) ouvrirAccueil();
