@@ -201,7 +201,9 @@ dechetsARamasser().forEach(ajouterMarqueur);
 
 function majCompteur() {
   const n = dechetsARamasser().length;
-  document.getElementById("counter").textContent = `${n} déchet${n > 1 ? "s" : ""} à ramasser`;
+  // Format court pour ne pas déborder sur les petits écrans de téléphone.
+  document.getElementById("counter").innerHTML = `<strong>${n}</strong> à ramasser`;
+  document.getElementById("counter").title = `${n} déchet${n > 1 ? "s" : ""} à ramasser`;
 }
 majCompteur();
 
