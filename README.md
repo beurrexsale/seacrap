@@ -30,3 +30,4 @@ puis aller sur http://localhost:8000.
 | Sprint | Contenu | Tag Git |
 | --- | --- | --- |
 | 1 | Carte de la rade avec les déchets signalés, données fictives, légende | `sprint-1` |
+| 2 | Menu de navigation, signalement avec photo, position et type, photo dans la fiche | `sprint-2` |

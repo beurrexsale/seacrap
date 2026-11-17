@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seacrap – Carte des déchets</title>
+  <title>Seacrap – Zéro déchet en rade de Brest</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -20,12 +20,66 @@
   </header>
 
   <main>
-    <div id="map"></div>
-
-    <section class="legend" id="legend" aria-label="Légende des types de déchets">
-      <!-- rempli par app.js -->
+    <!-- Écran 1 : carte des déchets (sprint 1) -->
+    <section class="view active" id="view-carte">
+      <div id="map"></div>
+      <div class="legend" id="legend" aria-label="Légende des types de déchets"></div>
     </section>
+
+    <!-- Écran 2 : signaler un déchet (sprint 2 – S5, S6) -->
+    <section class="view scroll" id="view-signaler">
+      <form id="form-signaler" class="card">
+        <h2>Signaler un déchet</h2>
+        <p class="hint">Prends le déchet en photo, choisis son type et vérifie sa position.</p>
+
+        <label class="photo-drop" for="photo">
+          <img id="photo-apercu" alt="" hidden>
+          <span id="photo-texte">📷 Prendre une photo</span>
+        </label>
+        <input type="file" id="photo" accept="image/*" capture="environment" hidden>
+
+        <label for="type">Type de déchet</label>
+        <div class="type-grid" id="type-grid"></div>
+        <input type="hidden" id="type">
+
+        <label for="lieu">Lieu (facultatif)</label>
+        <input type="text" id="lieu" placeholder="Ex. : plage du Moulin Blanc">
+
+        <label>Position</label>
+        <p class="hint" id="position-texte">Recherche de ta position…</p>
+        <div id="mini-map"></div>
+        <p class="hint">Touche la carte pour déplacer le repère si besoin.</p>
+
+        <p class="erreur" id="erreur" hidden></p>
+        <button type="submit" class="btn">Signaler ce déchet</button>
+      </form>
+    </section>
+
+    <!-- Écrans 3 et 4 : prévus pour les prochains sprints -->
+    <section class="view scroll" id="view-collection">
+      <div class="card placeholder">
+        <h2>Ma collection</h2>
+        <p>Ta collection par type de déchet arrive au sprint 3.</p>
+      </div>
+    </section>
+
+    <section class="view scroll" id="view-classement">
+      <div class="card placeholder">
+        <h2>Classement</h2>
+        <p>Le classement des joueurs arrive au sprint 4.</p>
+      </div>
+    </section>
+
+    <div class="toast" id="toast" hidden></div>
   </main>
+
+  <!-- Menu de navigation (retour de la revue croisée du sprint 1) -->
+  <nav class="tabbar" aria-label="Menu principal">
+    <button class="tab active" data-view="carte"><span>🗺️</span>Carte</button>
+    <button class="tab" data-view="signaler"><span>📷</span>Signaler</button>
+    <button class="tab" data-view="collection"><span>🏅</span>Collection</button>
+    <button class="tab" data-view="classement"><span>🏆</span>Classement</button>
+  </nav>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="data.js"></script>

@@ -47,3 +47,19 @@ const JOUEURS_INITIAUX = [
   { pseudo: "Noa_Brest", points: 90 },
   { pseudo: "Gwen.A",    points: 55 }
 ];
+
+// Sprint 2 – Illustration affichée dans la fiche des déchets fictifs,
+// qui n'ont pas de vraie photo. Clairement signalée « Photo d'exemple ».
+function illustrationExemple(type) {
+  const t = TYPES_DECHETS[type];
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="240" height="140" viewBox="0 0 240 140">
+      <rect width="240" height="140" fill="#e8dcc4"/>
+      <path d="M0 95 Q60 80 120 95 T240 92 V140 H0Z" fill="#d9c9a8"/>
+      <path d="M0 0 H240 V40 Q180 52 120 42 T0 46Z" fill="#7fb7c9"/>
+      <circle cx="120" cy="88" r="26" fill="${t.couleur}" opacity="0.9"/>
+      <text x="120" y="130" font-family="sans-serif" font-size="14" font-weight="700"
+            text-anchor="middle" fill="#3b3b3b">${t.label}</text>
+    </svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
