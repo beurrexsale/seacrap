@@ -24,9 +24,9 @@ const DECHETS_INITIAUX = [
   { id: 9,  type: "plastique",   lat: 48.3790, lng: -4.4930, lieu: "Brest – Port du Château",              signalePar: "Sarah29",    date: "2026-11-16" },
   { id: 10, type: "metal",       lat: 48.3600, lng: -4.5480, lieu: "Plouzané – Sainte-Anne-du-Portzic",    signalePar: "Lena_B",     date: "2026-11-12" },
   { id: 11, type: "plastique",   lat: 48.3608, lng: -4.5455, lieu: "Plouzané – Sainte-Anne-du-Portzic",    signalePar: "MarinDu29",  date: "2026-11-15" },
-  { id: 12, type: "polystyrene", lat: 48.3640, lng: -4.5300, lieu: "Plouzané – Plage du Dellec",           signalePar: "Tom_Plouz",  date: "2026-11-15" },
+  { id: 12, type: "polystyrene", lat: 48.3657, lng: -4.5312, lieu: "Plouzané – Plage du Dellec",           signalePar: "Tom_Plouz",  date: "2026-11-15" },
   { id: 13, type: "verre",       lat: 48.3590, lng: -4.5640, lieu: "Plouzané – Anse du Technopôle",        signalePar: "Gwen.A",     date: "2026-11-11" },
-  { id: 14, type: "peche",       lat: 48.3460, lng: -4.5800, lieu: "Plouzané – Fort de Mengant",           signalePar: "KayakMax",   date: "2026-11-16" },
+  { id: 14, type: "peche",       lat: 48.3535, lng: -4.5790, lieu: "Plouzané – Fort de Mengant",           signalePar: "KayakMax",   date: "2026-11-16" },
   { id: 15, type: "plastique",   lat: 48.3430, lng: -4.6110, lieu: "Plouzané – Plage du Minou",            signalePar: "Chloe.R",    date: "2026-11-12" },
   { id: 16, type: "textile",     lat: 48.3442, lng: -4.6085, lieu: "Plouzané – Plage du Minou",            signalePar: "Ewen_K",     date: "2026-11-10" }
 ];

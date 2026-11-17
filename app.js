@@ -187,7 +187,12 @@ function ajouterMarqueur(dechet) {
     fillOpacity: 0.95
   })
     .addTo(carte)
-    .bindPopup(contenuFiche(dechet), { maxWidth: 240 });
+    .bindPopup(contenuFiche(dechet), {
+      maxWidth: 240,
+      // la fiche ne doit pas passer sous l'en-tête ni sous le menu flottants
+      autoPanPaddingTopLeft: [12, 90],
+      autoPanPaddingBottomRight: [12, 120]
+    });
   marqueurs[dechet.id] = marqueur;
   return marqueur;
 }
@@ -402,7 +407,7 @@ document.getElementById("form-signaler").addEventListener("submit", (e) => {
   e.target.reset();
   photoSignalement = null;
   apercu.hidden = true;
-  document.getElementById("photo-texte").textContent = "📷 Prendre une photo";
+  document.getElementById("photo-texte").textContent = "Prendre une photo";
   document.querySelectorAll(".type-btn").forEach((b) => b.classList.remove("selected"));
   champType.value = "";
 
