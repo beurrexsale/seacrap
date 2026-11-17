@@ -23,6 +23,7 @@
     <!-- Écran 1 : carte des déchets (sprint 1) -->
     <section class="view active" id="view-carte">
       <div id="map"></div>
+      <button class="btn-recentrer" id="btn-recentrer" aria-label="Recentrer sur ma position">◎</button>
       <div class="legend" id="legend" aria-label="Légende des types de déchets"></div>
     </section>
 
@@ -55,20 +56,45 @@
       </form>
     </section>
 
-    <!-- Écrans 3 et 4 : prévus pour les prochains sprints -->
+    <!-- Connexion (sprint 3 – S2), demandée pour la collection et le classement -->
+    <section class="view scroll" id="view-connexion">
+      <form id="form-connexion" class="card">
+        <h2>Connexion</h2>
+        <p class="hint">Choisis un pseudo pour gagner des points, remplir ta collection et apparaître au classement.</p>
+        <label for="pseudo">Pseudo</label>
+        <input type="text" id="pseudo" maxlength="20" placeholder="Ex. : Goeland29" autocomplete="nickname">
+        <p class="erreur" id="erreur-connexion" hidden></p>
+        <button type="submit" class="btn">Se connecter</button>
+      </form>
+    </section>
+
+    <!-- Écran 3 : collection (sprint 3 – S8, S9) -->
     <section class="view scroll" id="view-collection">
-      <div class="card placeholder">
-        <h2>Ma collection</h2>
-        <p>Ta collection par type de déchet arrive au sprint 3.</p>
+      <div class="card">
+        <div class="profil">
+          <div>
+            <p class="hint">Connecté en tant que</p>
+            <h2 id="profil-pseudo"></h2>
+          </div>
+          <div class="score"><strong id="profil-points">0</strong><span>points</span></div>
+        </div>
+        <p class="hint" id="collection-resume"></p>
+        <div class="collection-grid" id="collection-grid"></div>
+        <p class="hint bareme">Signalement : +10 points · Ramassage : +20 points</p>
+        <button type="button" class="btn btn-secondaire" id="btn-deconnexion">Se déconnecter</button>
       </div>
     </section>
 
+    <!-- Écran 4 : classement, prévu au sprint 4 -->
     <section class="view scroll" id="view-classement">
       <div class="card placeholder">
         <h2>Classement</h2>
         <p>Le classement des joueurs arrive au sprint 4.</p>
       </div>
     </section>
+
+    <!-- Prise de photo du ramassage (S7) -->
+    <input type="file" id="photo-ramassage" accept="image/*" capture="environment" hidden>
 
     <div class="toast" id="toast" hidden></div>
   </main>

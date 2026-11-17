@@ -1,5 +1,5 @@
 // T2 – Données fictives pour la démo.
-// Les positions sont approximatives, le long des rivages de la rade de Brest.
+// Les positions sont approximatives, le long des rivages de Brest et Plouzané.
 
 const TYPES_DECHETS = {
   plastique:   { label: "Plastique",            couleur: "#e4572e" },
@@ -11,28 +11,28 @@ const TYPES_DECHETS = {
   textile:     { label: "Textile",              couleur: "#d1495b" }
 };
 
+// Sprint 3 : la zone est limitée à Brest et Plouzané (retour de la revue croisée).
 const DECHETS_INITIAUX = [
-  { id: 1,  type: "plastique",   lat: 48.3925, lng: -4.4310, lieu: "Plage du Moulin Blanc",        signalePar: "MarinDu29",  date: "2026-11-15" },
-  { id: 2,  type: "megots",      lat: 48.3940, lng: -4.4265, lieu: "Plage du Moulin Blanc",        signalePar: "Lena_B",     date: "2026-11-16" },
-  { id: 3,  type: "verre",       lat: 48.4025, lng: -4.3965, lieu: "Le Relecq-Kerhuon",            signalePar: "KayakMax",   date: "2026-11-14" },
-  { id: 4,  type: "peche",       lat: 48.3830, lng: -4.4760, lieu: "Port de commerce",             signalePar: "Yann.L",     date: "2026-11-13" },
-  { id: 5,  type: "plastique",   lat: 48.3790, lng: -4.4930, lieu: "Port du Château",              signalePar: "Sarah29",    date: "2026-11-16" },
-  { id: 6,  type: "metal",       lat: 48.3600, lng: -4.5480, lieu: "Sainte-Anne-du-Portzic",       signalePar: "Lena_B",     date: "2026-11-12" },
-  { id: 7,  type: "polystyrene", lat: 48.3640, lng: -4.5300, lieu: "Plage du Dellec",              signalePar: "Tom_Plouz",  date: "2026-11-15" },
-  { id: 8,  type: "plastique",   lat: 48.3720, lng: -4.4080, lieu: "Plougastel – Anse du Caro",    signalePar: "KayakMax",   date: "2026-11-11" },
-  { id: 9,  type: "peche",       lat: 48.3550, lng: -4.3880, lieu: "Plougastel – Porz Gwenn",      signalePar: "MarinDu29",  date: "2026-11-16" },
-  { id: 10, type: "textile",     lat: 48.3340, lng: -4.3640, lieu: "Pointe de l'Armorique",        signalePar: "Chloe.R",    date: "2026-11-10" },
-  { id: 11, type: "verre",       lat: 48.3220, lng: -4.3060, lieu: "Logonna-Daoulas",              signalePar: "Sarah29",    date: "2026-11-14" },
-  { id: 12, type: "plastique",   lat: 48.3110, lng: -4.2950, lieu: "Anse de Moulin Mer",           signalePar: "Yann.L",     date: "2026-11-13" },
-  { id: 13, type: "metal",       lat: 48.2930, lng: -4.3290, lieu: "Landévennec",                  signalePar: "Ewen_K",     date: "2026-11-09" },
-  { id: 14, type: "peche",       lat: 48.2900, lng: -4.4610, lieu: "Lanvéoc",                      signalePar: "Ewen_K",     date: "2026-11-15" },
-  { id: 15, type: "polystyrene", lat: 48.2860, lng: -4.5040, lieu: "Le Fret",                      signalePar: "Tom_Plouz",  date: "2026-11-16" },
-  { id: 16, type: "plastique",   lat: 48.3080, lng: -4.5480, lieu: "Roscanvel",                    signalePar: "Chloe.R",    date: "2026-11-12" },
-  { id: 17, type: "megots",      lat: 48.3870, lng: -4.4600, lieu: "Plage du port de plaisance",   signalePar: "Noa_Brest",  date: "2026-11-16" },
-  { id: 18, type: "verre",       lat: 48.3975, lng: -4.4150, lieu: "Pont de l'Iroise",             signalePar: "Noa_Brest",  date: "2026-11-14" },
-  { id: 19, type: "textile",     lat: 48.3480, lng: -4.4060, lieu: "Plougastel – Kerdéniel",       signalePar: "MarinDu29",  date: "2026-11-11" },
-  { id: 20, type: "plastique",   lat: 48.3010, lng: -4.4010, lieu: "Anse de Poulmic",              signalePar: "Lena_B",     date: "2026-11-15" }
+  { id: 1,  type: "plastique",   lat: 48.3925, lng: -4.4310, lieu: "Brest – Plage du Moulin Blanc",        signalePar: "MarinDu29",  date: "2026-11-15" },
+  { id: 2,  type: "megots",      lat: 48.3940, lng: -4.4265, lieu: "Brest – Plage du Moulin Blanc",        signalePar: "Lena_B",     date: "2026-11-16" },
+  { id: 3,  type: "polystyrene", lat: 48.3912, lng: -4.4282, lieu: "Brest – Plage du Moulin Blanc",        signalePar: "Tom_Plouz",  date: "2026-11-14" },
+  { id: 4,  type: "verre",       lat: 48.3895, lng: -4.4370, lieu: "Brest – Port du Moulin Blanc",         signalePar: "KayakMax",   date: "2026-11-14" },
+  { id: 5,  type: "textile",     lat: 48.3940, lng: -4.4450, lieu: "Brest – Anse Saint-Marc",              signalePar: "Chloe.R",    date: "2026-11-13" },
+  { id: 6,  type: "peche",       lat: 48.3830, lng: -4.4760, lieu: "Brest – Port de commerce",             signalePar: "Yann.L",     date: "2026-11-13" },
+  { id: 7,  type: "metal",       lat: 48.3818, lng: -4.4705, lieu: "Brest – Port de commerce",             signalePar: "Ewen_K",     date: "2026-11-16" },
+  { id: 8,  type: "megots",      lat: 48.3800, lng: -4.4840, lieu: "Brest – Sous le cours Dajot",          signalePar: "Noa_Brest",  date: "2026-11-16" },
+  { id: 9,  type: "plastique",   lat: 48.3790, lng: -4.4930, lieu: "Brest – Port du Château",              signalePar: "Sarah29",    date: "2026-11-16" },
+  { id: 10, type: "metal",       lat: 48.3600, lng: -4.5480, lieu: "Plouzané – Sainte-Anne-du-Portzic",    signalePar: "Lena_B",     date: "2026-11-12" },
+  { id: 11, type: "plastique",   lat: 48.3608, lng: -4.5455, lieu: "Plouzané – Sainte-Anne-du-Portzic",    signalePar: "MarinDu29",  date: "2026-11-15" },
+  { id: 12, type: "polystyrene", lat: 48.3640, lng: -4.5300, lieu: "Plouzané – Plage du Dellec",           signalePar: "Tom_Plouz",  date: "2026-11-15" },
+  { id: 13, type: "verre",       lat: 48.3590, lng: -4.5640, lieu: "Plouzané – Anse du Technopôle",        signalePar: "Gwen.A",     date: "2026-11-11" },
+  { id: 14, type: "peche",       lat: 48.3460, lng: -4.5800, lieu: "Plouzané – Fort de Mengant",           signalePar: "KayakMax",   date: "2026-11-16" },
+  { id: 15, type: "plastique",   lat: 48.3430, lng: -4.6110, lieu: "Plouzané – Plage du Minou",            signalePar: "Chloe.R",    date: "2026-11-12" },
+  { id: 16, type: "textile",     lat: 48.3442, lng: -4.6085, lieu: "Plouzané – Plage du Minou",            signalePar: "Ewen_K",     date: "2026-11-10" }
 ];
+
+// Sprint 3 – S8 : barème des points.
+const POINTS = { signalement: 10, ramassage: 20 };
 
 // Joueurs fictifs : serviront au classement (S10) dans un prochain sprint.
 const JOUEURS_INITIAUX = [
